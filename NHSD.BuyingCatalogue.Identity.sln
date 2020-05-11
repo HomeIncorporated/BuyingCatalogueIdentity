@@ -49,7 +49,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NHSD.BuyingCatalogue.Identi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NHSD.BuyingCatalogue.Organisations.Api.IntegrationTests", "tests\NHSD.BuyingCatalogue.Organisations.Api.IntegrationTests\NHSD.BuyingCatalogue.Organisations.Api.IntegrationTests.csproj", "{F569F73A-2430-4E50-B73D-B098B2D5994F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NHSD.BuyingCatalogue.Identity.Common.IntegrationTests", "tests\NHSD.BuyingCatalogue.Identity.Common.IntegrationTests\NHSD.BuyingCatalogue.Identity.Common.IntegrationTests.csproj", "{0BA3AF01-6D61-43CD-AE57-D9501C92B327}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NHSD.BuyingCatalogue.Identity.Common.IntegrationTests", "tests\NHSD.BuyingCatalogue.Identity.Common.IntegrationTests\NHSD.BuyingCatalogue.Identity.Common.IntegrationTests.csproj", "{0BA3AF01-6D61-43CD-AE57-D9501C92B327}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
