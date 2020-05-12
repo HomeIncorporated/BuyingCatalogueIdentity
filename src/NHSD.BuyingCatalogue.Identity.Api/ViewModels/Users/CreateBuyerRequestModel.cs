@@ -1,6 +1,6 @@
 ﻿namespace NHSD.BuyingCatalogue.Identity.Api.ViewModels.Users
 {
-    public sealed class CreateBuyerRequestViewModel
+    public sealed class CreateBuyerRequestModel
     {
         public string FirstName { get; set; }
 

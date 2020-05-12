@@ -46,7 +46,7 @@ namespace NHSD.BuyingCatalogue.Identity.Api.Controllers
                 IsDisabled = x.Disabled
             });
 
-            return Ok(new GetAllOrganisationUsersViewModel
+            return Ok(new GetAllOrganisationUsersModel
             {
                 Users = userViewModels
             });
@@ -78,14 +78,14 @@ namespace NHSD.BuyingCatalogue.Identity.Api.Controllers
         [Route("api/v1/Organisations/{organisationId}/Users")]
         [HttpPost]
         [Authorize(Policy = PolicyName.CanManageOrganisationUsers)]
-        public async Task<ActionResult<CreateBuyerResponseViewModel>> CreateBuyerAsync(Guid organisationId, CreateBuyerRequestViewModel createBuyerRequest)
+        public async Task<ActionResult<CreateBuyerResponseModel>> CreateBuyerAsync(Guid organisationId, CreateBuyerRequestModel createBuyerRequest)
         {
             if (createBuyerRequest is null)
             {
                 throw new ArgumentNullException(nameof(createBuyerRequest));
             }
 
-            var response = new CreateBuyerResponseViewModel();
+            var response = new CreateBuyerResponseModel();
 
             var result = await _createBuyerService.CreateAsync(new CreateBuyerRequest(
                 organisationId,

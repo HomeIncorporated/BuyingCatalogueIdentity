@@ -32,7 +32,7 @@ namespace NHSD.BuyingCatalogue.Identity.Api.UnitTests.Controllers
 
             var result = await controller.GetUsersByOrganisationId(Guid.Empty);
             result.Should().BeOfType<OkObjectResult>();
-            (result as OkObjectResult).Value.Should().BeOfType<GetAllOrganisationUsersViewModel>();
+            (result as OkObjectResult).Value.Should().BeOfType<GetAllOrganisationUsersModel>();
         }
 
         [Test]
@@ -43,7 +43,7 @@ namespace NHSD.BuyingCatalogue.Identity.Api.UnitTests.Controllers
             using var controller = context.Controller;
 
             var result = await controller.GetUsersByOrganisationId(Guid.Empty) as OkObjectResult;
-            var users = result.Value as GetAllOrganisationUsersViewModel;
+            var users = result.Value as GetAllOrganisationUsersModel;
             users.Users.Should().BeEmpty();
         }
 
@@ -63,7 +63,7 @@ namespace NHSD.BuyingCatalogue.Identity.Api.UnitTests.Controllers
             using var controller = context.Controller;
 
             var result = await controller.GetUsersByOrganisationId(Guid.Empty) as OkObjectResult;
-            var viewModel = result.Value as GetAllOrganisationUsersViewModel;
+            var viewModel = result.Value as GetAllOrganisationUsersModel;
 
             viewModel.Users.Should().BeEquivalentTo(users.Select(x => x.Expected));
         }
@@ -90,16 +90,16 @@ namespace NHSD.BuyingCatalogue.Identity.Api.UnitTests.Controllers
 
             using var controller = context.Controller;
 
-            var response = await controller.CreateBuyerAsync(Guid.Empty, new CreateBuyerRequestViewModel());
+            var response = await controller.CreateBuyerAsync(Guid.Empty, new CreateBuyerRequestModel());
 
-            response.Should().BeOfType<ActionResult<CreateBuyerResponseViewModel>>();
+            response.Should().BeOfType<ActionResult<CreateBuyerResponseModel>>();
             var actual = response.Result;
 
             var expectation = new CreatedAtActionResult(
                 nameof(controller.GetUserByIdAsync).TrimAsync(),
                 null,
                 new { userId = newUserId },
-                new CreateBuyerResponseViewModel { UserId = newUserId });
+                new CreateBuyerResponseModel { UserId = newUserId });
 
             actual.Should().BeEquivalentTo(expectation);
         }
@@ -112,7 +112,7 @@ namespace NHSD.BuyingCatalogue.Identity.Api.UnitTests.Controllers
             using var controller = context.Controller;
 
             var organisationId = Guid.NewGuid();
-            var createUserRequestViewModel = new CreateBuyerRequestViewModel
+            var createUserRequestViewModel = new CreateBuyerRequestModel
             {
                 FirstName = "Bob",
                 LastName = "Smith",
@@ -143,16 +143,16 @@ namespace NHSD.BuyingCatalogue.Identity.Api.UnitTests.Controllers
             context.CreateBuyerResult = Result.Failure<string>(errors);
 
             var organisationId = Guid.NewGuid();
-            var createUserRequestViewModel = new CreateBuyerRequestViewModel();
+            var createUserRequestViewModel = new CreateBuyerRequestModel();
 
             var response = await context.Controller.CreateBuyerAsync(organisationId, createUserRequestViewModel);
 
-            response.Should().BeOfType<ActionResult<CreateBuyerResponseViewModel>>();
+            response.Should().BeOfType<ActionResult<CreateBuyerResponseModel>>();
             var actual = response.Result;
 
             var expectedErrors =
                 new List<ErrorMessageViewModel> { new ErrorMessageViewModel("TestErrorId", "TestField") };
-            var expected = new BadRequestObjectResult(new CreateBuyerResponseViewModel { Errors = expectedErrors });
+            var expected = new BadRequestObjectResult(new CreateBuyerResponseModel { Errors = expectedErrors });
             actual.Should().BeEquivalentTo(expected);
         }
 
@@ -161,7 +161,7 @@ namespace NHSD.BuyingCatalogue.Identity.Api.UnitTests.Controllers
         {
             var context = UsersControllerTestContext.Setup();
 
-            async Task<ActionResult<CreateBuyerResponseViewModel>> CreateUser()
+            async Task<ActionResult<CreateBuyerResponseModel>> CreateUser()
             {
                 using var controller = context.Controller;
                 return await controller.CreateBuyerAsync(Guid.Empty, null);
